@@ -1,8 +1,8 @@
 /*
+ * Assignment 1: Stacks & Queues
  * Stack.cpp
- *
- *  Created on: Feb 4, 2018
- *      Author: rpput
+ * Created: 02/04/2018
+ * Author: Christopher A Runyan
  */
 
 #include "Stack.h"
