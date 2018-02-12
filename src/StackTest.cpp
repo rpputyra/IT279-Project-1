@@ -20,7 +20,7 @@ int main(){
 
    stack->pop();
    cout<<"\nPop method tested OK.\n";
-   cout<<"Stack after pop method:\n";
+   cout<<"Stack after pop method:\n\n";
    stack->print();
 
    stack->push(1, 2, '+');
@@ -32,6 +32,12 @@ int main(){
    stack->pop();
    cout<<"\nStack after pop method:\n";
    stack->print();
+
+   stack->push(3, 4, '*');
+   cout<<"\nStack after adding duplicate:\n";
+   stack->print();
+
+   cout<<"\ntop & top->next equals: "<<stack->peek()->equals(stack->peek()->next)<<"\n\n";
 
    return 0;
 } 

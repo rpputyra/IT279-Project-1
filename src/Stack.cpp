@@ -54,6 +54,15 @@ class Stack{
          cout<<"Operand 2: "<<operandInt2<<"\n";
          cout<<"Operator: "<<operatorChar<<"\n\n";
       }
+
+      public:bool equals(Node* toTestEquals){
+         if(toTestEquals->operandInt1==operandInt1 && toTestEquals->operandInt2==operandInt2 && toTestEquals->operatorChar==operatorChar){
+            return true;
+         }
+         else{
+            return false;
+         }
+      }
    };
 
 private:
