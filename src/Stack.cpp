@@ -8,6 +8,7 @@
 
 using namespace std;
 
+//Each Node inside of this Stack contains two ints and one char. It is designed for use for a calculator, where the char is an operator for both ints as operands. It needs to be cleaned up a lot, but all methods work. 
 class Stack{
    //Node for Stack, contains two ints and one char
    struct Node{
@@ -15,7 +16,8 @@ class Stack{
       public:int operandInt2;
       public:char operatorChar;
       public:Node* next;
-
+ 
+      //constructor
       public:Node(int operandInt1, int operandInt2, char operatorChar){
          this->operandInt1 = operandInt1;
          this->operandInt2 = operandInt2;
@@ -23,25 +25,30 @@ class Stack{
          this->next = NULL;
       }
 
+      //constructor
       public:Node(int operandInt1, int operandInt2, char operatorChar, Node* next){
          this->operandInt1 = operandInt1;
          this->operandInt2 = operandInt2;
          this->operatorChar = operatorChar;
          this->next = next;
       }
-
+ 
+      //returns the value of operandInt1
       public:int getOperandInt1(){
          return operandInt1;
       }
    
+      //returns the value of operandInt2
       public:int getOperandInt2(){
          return operandInt2;
       }
   
+      //returns the value of operatorChar
       public:char getOperatorChar(){
          return operatorChar;
       }
 
+      //prints the Node in a clean format
       public:void print(){
          cout<<"Operand 1: "<<operandInt1<<"\n";
          cout<<"Operand 2: "<<operandInt2<<"\n";
