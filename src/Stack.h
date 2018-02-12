@@ -9,7 +9,20 @@
 #define STACK_H_
 
 class Stack {
-public: 
+struct Node{
+   public:
+      int operandInt1;
+      int operantInt2;
+      char operatorChar;
+      Node* next;
+      Node(int operatorInt1, int operatorInt2, char operatorChar);
+      Node(int operatorInt1, int operatorInt2, char operatorChat, Node* next);
+      int getOperatandInt1();
+      int getOperantInt2();
+      char getOperatorChar();
+};
+
+private: 
    Node* top;
    int size;
 
