@@ -7,8 +7,11 @@
 CC=g++
 CFLAGS=-g -Wall
 
-all: Stack.o
-	${CC} ${CFLAGS} -o main Stack.o
+all: StackTest.o Stack.o
+	${CC} ${CFLAGS} -o main StackTest.o Stack.o
+
+StackTest.o: StackTest.cpp
+	${CC} ${CFLAGS} -c StackTest.cpp
 
 Stack.o: Stack.cpp
 	${CC} ${CFLAGS} -c Stack.cpp
