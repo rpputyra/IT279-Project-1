@@ -19,12 +19,14 @@ struct Customer {
 
 class CustomerService {
 public:
-	int firstArrival;
+	Customer cust;
 	int counter;
+	int highestSize;
+	int longestWait;
 	queue <Customer> serviceQueue;
 
 	CustomerService();
-	void run();
+	void run(int x);
 	void printArrivalMessage(Customer cust, int time);
 	void printDepartureMessage(Customer cust, int time);
 	virtual ~CustomerService();

@@ -13,114 +13,102 @@
 
 CustomerService::CustomerService() {
 	// TODO Auto-generated constructor stub
-	counter = 1;
 
+	counter = 1;
+	highestSize = 0;
+	longestWait = 0;
 }
 
-void CustomerService::run() {
+void CustomerService::run(int x) {
 	//Initialize first customer and push into queue
-	Customer cust;
 
-	cust.arrivalTime = (1 + rand() % 5);
+
+	cust.arrivalTime = (1 + rand() % x);
 	cust.serviceTime = cust.arrivalTime;
-	cust.endService =
-			cust.serviceTime + (1 + rand() % 5);
+	cust.endService = cust.serviceTime + (1 + rand() % x);
 	cust.id = counter;
-
-//	cout << cust.arrivalTime << endl;
-//	cout << cust.serviceTime << endl;
-//	cout << cust.endService << endl;
-//	cout << cust.id << endl;
-
-
-//	serviceQueue.push(cust);
-
-//	cout<< "Empty?: " << serviceQueue.empty() << endl;
-//	cout<< "Size: " << serviceQueue.size() << endl;
-//	cout << "----------" << endl;
-//
-//	cust.arrivalTime = (1 + rand() % 5);
-//	cust.serviceTime = cust.arrivalTime;
-//	cust.endService =
-//	cust.serviceTime + (1 + rand() % 5);
-//	cust.id = counter;
-//
-//	cout << "\nnew cust\n" <<endl;
-//	cout << cust.arrivalTime << endl;
-//	cout << cust.serviceTime << endl;
-//	cout << cust.endService << endl;
-//	cout << cust.id << endl;
-//
-//	cout <<"\nfront of queue\n" <<endl;
-//	cout << serviceQueue.front().arrivalTime << endl;
-//	cout << serviceQueue.front().serviceTime << endl;
-//	cout << serviceQueue.front().endService << endl;
-
-//	cout << endl;
-//	Customer nextCustomer;
-//
-//	nextCustomer = serviceQueue.front();
-//	serviceQueue.pop();
-//
-//	cout << nextCustomer.arrivalTime << endl;
-//	cout << nextCustomer.serviceTime << endl;
-//	cout << nextCustomer.endService << endl;
-//	cout << nextCustomer.id << endl;
-//	cout<< "Empty?: " << serviceQueue.empty() << endl;
-//	cout<< "Size: " << serviceQueue.size() << endl;
 
 	counter++;
 
-	for(int i=0; i<60; i++) {
+	for(int i=0; i<720; i++) {
 		if(i == cust.arrivalTime) {
 			printArrivalMessage(cust, i);
 			serviceQueue.push(cust);
+			if(serviceQueue.size() > highestSize) {
+				highestSize = serviceQueue.size();
+			}
 			if(serviceQueue.size() == 1) {
-				serviceQueue.front().serviceTime = (1 + rand() % 5);
+				serviceQueue.front().serviceTime = (1 + rand() % x);
 				serviceQueue.front().endService = i + serviceQueue.front().serviceTime;
 			}
-			cust.arrivalTime = i + (1 + rand() % 5);
+			cust.arrivalTime = i + (1 + rand() % x);
 			cust.id = counter;
 			counter++;
-//			cout<< "New Customer ID: " << cust.id <<endl;
 		}
 		if(i == serviceQueue.front().endService) {
-//			cout<< "	Next Customer ID: " << serviceQueue.front().id <<endl;
 			printDepartureMessage(serviceQueue.front(), i);
-			cout<<"   Service time: " << serviceQueue.front().serviceTime << endl;
+			int wait;
+			wait = serviceQueue.front().endService - serviceQueue.front().arrivalTime;
+			if(wait > longestWait) {
+				longestWait = wait;
+			}
 			serviceQueue.pop();
 			if(!serviceQueue.empty()) {
-			serviceQueue.front().serviceTime = (1 + rand() % 5);
+			serviceQueue.front().serviceTime = (1 + rand() % x);
 			serviceQueue.front().endService = i + serviceQueue.front().serviceTime;
-//			cout<< "	Next Customer in Line ID: " << serviceQueue.front().id <<endl;
 			}
 		}
 	}
-	int i = 59;
+	int i = 720;
 	while(!serviceQueue.empty()) {
 
 		if (serviceQueue.front().endService) {
-//			cout<< "	Next Customer ID: " << serviceQueue.front().id <<endl;
 			printDepartureMessage(serviceQueue.front(), i);
-			cout<<"   Service time: " << serviceQueue.front().serviceTime << endl;
 			serviceQueue.pop();
 			if(!serviceQueue.empty()) {
-			serviceQueue.front().serviceTime = (1 + rand() % 5);
+			serviceQueue.front().serviceTime = (1 + rand() % x);
 			serviceQueue.front().endService = i + serviceQueue.front().serviceTime;
-//			cout<< "	Next Customer in Line ID: " << serviceQueue.front().id <<endl;
 			}
 		}
 		i++;
-		cout<<"what is i: "<<i<<endl;
 	}
+	cout<<"\nLongest Line of Customers: "<<highestSize<<" customers."<<endl;
+	cout<<"\nLongest Wait: "<<longestWait<<" seconds."<<endl;
 }
 
 void CustomerService::printArrivalMessage(Customer cust, int time) {
-	cout << "Customer " << cust.id << " arrived at " << time << endl;
+	int minutes = time%60;
+	int hour = time/60;
+	if(minutes == 0) {
+			cout << "Customer " << cust.id << " left at    " << hour << ":" << "00" << endl;
+			}
+	else if(minutes%10 == 0) {
+		cout << "Customer " << cust.id << " arrived at " << hour << ":" << minutes << endl;
+	}
+	else if(minutes<10) {
+		cout << "Customer " << cust.id << " arrived at " << hour << ":" << "0" << minutes << endl;
+	}
+	else {
+		cout << "Customer " << cust.id << " arrived at " << hour << ":" << minutes << endl;
+	}
 }
 
 void CustomerService::printDepartureMessage(Customer cust, int time) {
-	cout << "Customer " << cust.id << " left at " << time << endl;
+	int minutes = time%60;
+	int hour = time/60;
+	if(minutes == 0) {
+		cout << "Customer " << cust.id << " left at    " << hour << ":" << "00" << endl;
+	}
+	else if(minutes%10 == 0) {
+		cout << "Customer " << cust.id << " left at    " << hour << ":" << minutes << endl;
+	}
+	else if(minutes<10) {
+		cout << "Customer " << cust.id << " left at    " << hour << ":" << "0" << minutes << endl;
+	}
+
+	else {
+		cout << "Customer " << cust.id << " left at    " << hour << ":" << minutes << endl;
+	}
 }
 
 CustomerService::~CustomerService() {
@@ -133,7 +121,10 @@ int main() {
 
 	CustomerService *cs = new CustomerService();
 
-	cs->run();
+	int n;
+	cout<<"Enter a value for x for a range of time from 1 to x seconds: "<<endl;
+	cin>>n;
+	cs->run(n);
 
 	return 0;
 }
