@@ -11,6 +11,8 @@
 #include <time.h>
 #include <queue>
 
+
+//CustomerService Constructor
 CustomerService::CustomerService() {
 	highestSize = 0;
 	longestWait = 0;
@@ -19,13 +21,17 @@ CustomerService::CustomerService() {
 	departureCounter = 1;
 }
 
+//Runs the loops for CustomerService
 void CustomerService::run(int x) {
 	//Initialize first customer and push into queue
 
 	arrivalTime = (1 + rand() % x);
 	serviceTime = arrivalTime;
-
+	//Runs initial loop for CustomerService for 720 minutes.
 	for(int i=0; i<720; i++) {
+		/* When i matches each new customer's schedule arrival time,
+		 * push the customer into the queue.
+		 */
 		if(i == arrivalTime) {
 			printArrivalMessage(i);
 			serviceQueue.push(arrivalTime);
@@ -38,6 +44,9 @@ void CustomerService::run(int x) {
 			}
 			arrivalTime = i + (1 + rand() % x);
 		}
+		/* When i matches the service time, pop the queue
+		 * and recalculate the service time for the next customer
+		 */
 		if(i == serviceTime) {
 			printDepartureMessage(i);
 			serviceQueue.pop();
@@ -50,6 +59,7 @@ void CustomerService::run(int x) {
 			}
 		}
 	}
+	//Flush the rest of the customers out of the store.
 	int i = 720;
 	while(!serviceQueue.empty()) {
 
@@ -66,10 +76,12 @@ void CustomerService::run(int x) {
 		}
 		i++;
 	}
+	//Print the stats of the simulation
 	cout<<"\nLongest Line of Customers: "<<highestSize<<" customers."<<endl;
 	cout<<"\nLongest Wait: "<<longestWait<<" seconds."<<endl;
 }
 
+//Print the arrival message for each customer
 void CustomerService::printArrivalMessage(int time) {
 	int minutes = time%60;
 	int hour = time/60;
@@ -89,6 +101,7 @@ void CustomerService::printArrivalMessage(int time) {
 	arrivalCounter++;
 }
 
+//Print the arrival message of each customer
 void CustomerService::printDepartureMessage(int time) {
 	int minutes = time%60;
 	int hour = time/60;
@@ -108,13 +121,8 @@ void CustomerService::printDepartureMessage(int time) {
 	departureCounter++;
 }
 
-CustomerService::~CustomerService() {
-
-}
-
 int main() {
 	srand(time(NULL));
-
 	CustomerService *cs = new CustomerService();
 
 	int n;
