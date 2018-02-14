@@ -7,14 +7,14 @@
 CC=g++
 CFLAGS=-g -Wall
 
-all: StackTest.o Stack.o
-	${CC} ${CFLAGS} -o main StackTest.o Stack.o
+all: QueueTest.o Queue.o
+	${CC} ${CFLAGS} -o main QueueTest.o Queue.o
 
-StackTest.o: StackTest.cpp
-	${CC} ${CFLAGS} -c StackTest.cpp
+QueueTest.o: QueueTest.cpp
+	${CC} ${CFLAGS} -c QueueTest.cpp
 
-Stack.o: Stack.cpp
-	${CC} ${CFLAGS} -c Stack.cpp
+Queue.o: Queue.cpp
+	${CC} ${CFLAGS} -c Queue.cpp
 
 clean:
 	rm *.o
