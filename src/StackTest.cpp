@@ -15,7 +15,7 @@ int main(){
 
    stack->push(1, 2, '+');
    cout<<"Push method tested OK.\n";
-   cout<<"Stack after push method:\n"; 
+   cout<<"Stack after push method:\n";
    stack->print();
 
    stack->pop();
@@ -26,7 +26,7 @@ int main(){
    stack->push(1, 2, '+');
    stack->push(3, 4, '*');
    stack->push(5, 6, '-');
-   cout<<"\nStack after 3 push methods:\n"; 
+   cout<<"\nStack after 3 push methods:\n";
    stack->print();
 
    stack->pop();
@@ -40,4 +40,4 @@ int main(){
    cout<<"\ntop & top->next equals: "<<stack->peek()->equals(stack->peek()->next)<<"\n\n";
 
    return 0;
-} 
+}
