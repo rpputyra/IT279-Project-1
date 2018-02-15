@@ -62,6 +62,10 @@ public:
       }
    }
 
+   int getSize(){
+	   return size;
+   }
+
    void push(int data){
       Node* temp = frontNode;
 

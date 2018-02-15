@@ -6,11 +6,13 @@
  */
 
 #include "CustomerService.h"
-#include <stdlib.h>
 #include <iostream>
 #include <time.h>
-#include <queue>
+#include "Queue.cpp"
 
+using namespace std;
+
+Queue* serviceQueue = new Queue();
 
 //CustomerService Constructor
 CustomerService::CustomerService() {
@@ -19,6 +21,8 @@ CustomerService::CustomerService() {
 
 	arrivalCounter = 1;
 	departureCounter = 1;
+
+
 }
 
 //Runs the loops for CustomerService
@@ -34,12 +38,12 @@ void CustomerService::run(int x) {
 		 */
 		if(i == arrivalTime) {
 			printArrivalMessage(i);
-			serviceQueue.push(arrivalTime);
+			serviceQueue->push(arrivalTime);
 			//hey
-			if(serviceQueue.size() > highestSize) {
-				highestSize = serviceQueue.size();
+			if(serviceQueue->getSize() > highestSize) {
+				highestSize = serviceQueue->getSize();
 			}
-			if(serviceQueue.size() == 1) {
+			if(serviceQueue->getSize() == 1) {
 				serviceTime = i + (1 + rand() % x);
 			}
 			arrivalTime = i + (1 + rand() % x);
@@ -49,9 +53,9 @@ void CustomerService::run(int x) {
 		 */
 		if(i == serviceTime) {
 			printDepartureMessage(i);
-			serviceQueue.pop();
-			if(!serviceQueue.empty()) {
-				int wait = i - serviceQueue.front();
+			serviceQueue->pop();
+			if(!serviceQueue->empty()) {
+				int wait = i - serviceQueue->front();
 					if(wait > longestWait) {
 						longestWait = wait;
 					}
@@ -61,13 +65,13 @@ void CustomerService::run(int x) {
 	}
 	//Flush the rest of the customers out of the store.
 	int i = 720;
-	while(!serviceQueue.empty()) {
+	while(!serviceQueue->empty()) {
 
 		if(i == serviceTime) {
 			printDepartureMessage(i);
-			serviceQueue.pop();
-			if(!serviceQueue.empty()) {
-				int wait = i - serviceQueue.front();
+			serviceQueue->pop();
+			if(!serviceQueue->empty()) {
+				int wait = i - serviceQueue->front();
 				if(wait > longestWait) {
 					longestWait = wait;
 				}
