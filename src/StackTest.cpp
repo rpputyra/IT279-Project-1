@@ -15,7 +15,7 @@ int main(){
 
    stack->push(1, 2, '+');
    cout<<"Push method tested OK.\n";
-   cout<<"Stack after push method:\n"; 
+   cout<<"Stack after push method:\n";
    stack->print();
 
    stack->pop();
